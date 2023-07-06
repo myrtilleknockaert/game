@@ -1,8 +1,9 @@
 import pygame
 
 from player import Player
-from monster import Monster
+from monster import Monster, Mummy, Alien
 from comet_event import CometFallEvent
+from sounds import SoundManager
 
 
 class Game:
@@ -13,24 +14,38 @@ class Game:
         self.all_players.add(self.player)
         self.comet_event = CometFallEvent(self)
         self.all_monsters = pygame.sprite.Group()
+        self.sound_manager = SoundManager()
+        self.score = 0
         self.pressed = {}  # create a dictionnary to save the keys pressed by the user
 
     def start(self):
         self.is_playing = True
-        self.spawn_monster()
-        self.spawn_monster()
+        self.spawn_monster(Mummy)
+        self.spawn_monster(Mummy)
+        self.spawn_monster(Alien)
+
+    def add_score(self, points=10):
+        self.score += points
 
     def game_over(self):
         self.all_monsters = pygame.sprite.Group()
         self.comet_event.all_comets = pygame.sprite.Group()
         self.player.health = self.player.max_health
         self.is_playing = False
+        self.score = 0
+        self.sound_manager.play("game_over")
 
     def update(self, screen):
+        font = pygame.font.SysFont("monospace", 16)
+        score_text = font.render(f"Score: {self.score}", 1, (0, 0, 0))
+        screen.blit(score_text, (20, 20))
+
         screen.blit(self.player.image, self.player.rect)  # add the player
         self.player.update_health_bar(screen)
 
         self.comet_event.update_bar(screen)
+
+        self.player.update_animation()
 
         for projectile in self.player.all_projectiles:
             projectile.move()
@@ -38,6 +53,7 @@ class Game:
         for monster in self.all_monsters:
             monster.forward()
             monster.update_health_bar(screen)
+            monster.update_animation()
 
         for comet in self.comet_event.all_comets:
             comet.fall()
@@ -61,5 +77,5 @@ class Game:
             sprite, group, False, pygame.sprite.collide_mask
         )
 
-    def spawn_monster(self):
-        self.all_monsters.add(Monster(self))
+    def spawn_monster(self, monster_class_name):
+        self.all_monsters.add(monster_class_name.__call__(self))
