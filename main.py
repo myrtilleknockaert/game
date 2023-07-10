@@ -12,6 +12,7 @@ pygame.display.set_caption("Jeu du Pic'asso")
 screen = pygame.display.set_mode((1080, 720))
 
 background = pygame.image.load("assets/bg.png")
+foreground = pygame.image.load("assets/fg.png")
 
 banner = pygame.image.load("assets/banner.png")
 banner = pygame.transform.scale(banner, (500, 500))
@@ -31,6 +32,7 @@ game = Game()
 running = True
 while running:
     screen.blit(background, (0, 0))  # add the background
+    screen.blit(foreground, (0, 330))  # add the foreground
 
     if game.is_playing:
         game.update(screen)
