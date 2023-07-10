@@ -21,7 +21,6 @@ banner_rect.x = math.ceil(screen.get_width() / 4)
 banner_rect.y = math.ceil(screen.get_height() / 6)
 
 
-
 game = Game()
 
 
@@ -40,7 +39,6 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-            pygame.quit()
         elif event.type == pygame.KEYDOWN:
             game.pressed[
                 event.key
