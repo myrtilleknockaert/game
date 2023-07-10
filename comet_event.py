@@ -25,7 +25,6 @@ class CometFallEvent:
 
     def attempt_fall(self):
         if self.is_full_loaded() and len(self.game.all_monsters) == 0:
-            print("Comet is falling")
             self.meteor_fall()
             self.fall_mode = True
 

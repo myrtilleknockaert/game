@@ -14,8 +14,12 @@ class AnimateSprite(pygame.sprite.Sprite):
     def __init__(self, sprite_name, size=(200, 200)):
         super().__init__()
         self.size = size
+        self.sprite_name = sprite_name
         self.image = pygame.image.load(f"assets/{sprite_name}.png")
-        self.image = pygame.transform.scale(self.image, size)
+        if self.sprite_name == "player":
+            self.image = pygame.transform.scale_by(self.image, 0.1)
+        else:
+            self.image = pygame.transform.scale(self.image, size)
         self.current_image = 0
         self.images = animations.get(sprite_name)
         self.animation = False
@@ -32,7 +36,10 @@ class AnimateSprite(pygame.sprite.Sprite):
                     self.animation = False
 
             self.image = self.images[self.current_image]
-            self.image = pygame.transform.scale(self.image, self.size)
+            if self.sprite_name == "player":
+                self.image = pygame.transform.scale_by(self.image, 0.1)
+            else:
+                self.image = pygame.transform.scale(self.image, self.size)
 
 
 animations = {

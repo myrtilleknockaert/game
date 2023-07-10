@@ -36,9 +36,9 @@ class Game:
         self.sound_manager.play("game_over")
 
     def update(self, screen):
-        font = pygame.font.SysFont("monospace", 16)
-        score_text = font.render(f"Score: {self.score}", 1, (0, 0, 0))
-        screen.blit(score_text, (20, 20))
+        font = pygame.font.SysFont("monospace", 25)
+        score_text = font.render(f"Score: {self.score}", 1, (255, 255, 255))
+        screen.blit(score_text, (30, 30))
 
         screen.blit(self.player.image, self.player.rect)  # add the player
         self.player.update_health_bar(screen)

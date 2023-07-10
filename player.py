@@ -29,12 +29,12 @@ class Player(animation.AnimateSprite):
         pygame.draw.rect(
             surface,
             (60, 63, 60),
-            [self.rect.x + 50, self.rect.y + 20, self.max_health, 7],
+            [self.rect.x + 20, self.rect.y + -30, self.max_health, 7],
         )
         pygame.draw.rect(
             surface,
             (111, 210, 46),
-            [self.rect.x + 50, self.rect.y + 20, self.health, 7],
+            [self.rect.x + 20, self.rect.y + -30, self.health, 7],
         )
 
     def launch_projectile(self):

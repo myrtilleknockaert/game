@@ -28,7 +28,7 @@ class Monster(animation.AnimateSprite):
 
         if self.health <= 0:
             self.rect.x = 1000 + random.randint(0, 300)
-            self.health = 100
+            self.health = self.max_health
             self.velocity = random.randint(1, self.default_speed)
             self.game.add_score(self.loot_amount)
 
@@ -70,6 +70,6 @@ class Alien(Monster):
         super().__init__(game, "alien", (300, 300), 130)
         self.health = 250
         self.max_health = 250
-        self.attack = 0.8
+        self.attack = 0.6
         self.set_speed(1)
         self.set_loot_amount(80)
